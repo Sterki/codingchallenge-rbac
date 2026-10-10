@@ -3,8 +3,6 @@ package com.globalside.codingchallenge.rbac.web;
 import com.globalside.codingchallenge.rbac.api.ProductApi;
 import com.globalside.codingchallenge.rbac.model.ProductDto;
 import com.globalside.codingchallenge.rbac.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

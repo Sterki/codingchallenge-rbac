@@ -19,8 +19,10 @@ import com.globalside.codingchallenge.rbac.security.CustomAccessDeniedHandler;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAccessDeniedHandler accessDeniedHandler) throws Exception {
+        // we disabled csrf it because we are using a stateless authentication where the state is not stored in the session 
+        // and client explicitly supply credentials and we dont rely on browser to manage authentication.
         http.
-            csrf(csrf -> csrf.disable())
+            csrf(csrf -> csrf.disable()) 
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/products", "/products/**").hasAnyRole("ADMIN","USER")
@@ -30,7 +32,7 @@ public class SecurityConfig {
             .anyRequest().authenticated())
             .httpBasic(basic -> {})
             .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))
-            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())); // we allow the h2-console to be accessed from the browser from the same origin
             
         return http.build();
     }
@@ -50,6 +52,7 @@ public class SecurityConfig {
             .roles("USER")
             .build();
 
+        // we store the users in memory with InMemoryUserDetailsManager
         return new InMemoryUserDetailsManager(admin, user);
     }
 

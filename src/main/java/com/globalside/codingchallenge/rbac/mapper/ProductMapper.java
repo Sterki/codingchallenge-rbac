@@ -4,7 +4,6 @@ package com.globalside.codingchallenge.rbac.mapper;
 import com.globalside.codingchallenge.rbac.db.model.ProductDbo;
 import com.globalside.codingchallenge.rbac.model.ProductDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
